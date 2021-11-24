@@ -85,6 +85,8 @@ class PornDetectorHandler:
         """
         porn_predictions = -999
         try:
+            logger.debug("current_dir=" + str(self.current_dir))
+
             file_path = str(file_path).strip()
             if not file_tool.is_a_file(file_path):
                 return porn_predictions
@@ -100,6 +102,34 @@ class PornDetectorHandler:
         except Exception as msg:
             logger.warning("err,msg=" + str(msg))
             return porn_predictions
+
+    def nudenet_detector(self, file_path=""):
+        """
+          https://github.com/notAI-tech/NudeNet
+          pcr_porn_predict
+        """
+        porn_processed_boxes_dict = {}
+        try:
+            logger.debug("current_dir=" + str(self.current_dir))
+            file_path = str(file_path).strip()
+            if not file_tool.is_a_file(file_path):
+                return porn_processed_boxes_dict
+
+            # Import module
+            from nudenet import NudeDetector
+
+            # Microsoft Visual C++ Redistributable for Visual Studio 2019 not installed on the machine.
+            # 
+            # initialize detector (downloads the checkpoint file automatically the first time)
+            detector = NudeDetector()  # detector = NudeDetector('base') for the "base" version of detector.
+
+            # Detect single image
+            porn_processed_boxes_dict = detector.detect(file_path)
+
+            return porn_processed_boxes_dict
+        except Exception as msg:
+            logger.warning("err,msg=" + str(msg))
+            return porn_processed_boxes_dict
 
 
 def test_porn_detector():
@@ -123,7 +153,7 @@ def test_porn_detector():
     need_detect_file_fullpath_list += file_fullpath_list
 
     for file_fullpath in need_detect_file_fullpath_list:
-        prediction = p_d_cls.pcr_porn_predict(file_fullpath)
+        prediction = p_d_cls.nudenet_detector(file_fullpath)
         logger.info("test_porn_detector.pcr_porn_predict.prediction=" + str(prediction) + ";file_fullpath=" + str(file_fullpath))
 
 
