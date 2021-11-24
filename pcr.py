@@ -254,7 +254,7 @@ class PCR:
             if img.shape[1] > 1000:
                 cf = 1000.0 / img.shape[1]
                 newSize = (int(cf * img.shape[0]), int(cf * img.shape[1]), img.shape[2])
-                img.resize(newSize)
+                img.resize(newSize, refcheck=False)
 
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
