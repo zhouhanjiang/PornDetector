@@ -1,4 +1,10 @@
 # PornDetector
+https://github.com/zhouhanjiang/PornDetector  
+  
+## requirements  
+pip3 install  scikit-learn==0.22  
+
+
 Two python porn images (nudity) detectors.
 
 First one (pcr.py) use scikit-learn and opencv. I was able to get ~85% accuracy on markup with 1500 positive and 1500 negative samples. It use two machine-learned classifiers - one of them use HSV colors histogram, and another use SIFT descriptors.
@@ -25,7 +31,7 @@ from pcr import PCR
 model = PCR()
 model.loadModel('model.bin')
 predictions = model.predict(['image1.jpg', 'image2.jpg', 'image3.jpg'])
-print predictions
+# print predictions
 ```
 
 ### Usage of tensorlflow detector
@@ -36,7 +42,7 @@ from nnpcr import NNPCR
 model = NNPCR()
 model.loadModel('nnmodel.bin')
 predictions = model.predict(['image1.jpg', 'image2.jpg', 'image3.jpg'])
-print predictions
+# print predictions
 ```
 
 ### Train model

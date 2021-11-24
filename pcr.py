@@ -260,7 +260,10 @@ class PCR:
 
             s = cv2.SIFT(nfeatures=400)
 
-            d = cv2.DescriptorExtractor_create("OpponentSIFT")
+            # d = cv2.DescriptorExtractor_create("OpponentSIFT")
+            # https://stackoverflow.com/questions/40326747/module-object-has-no-attribute-descriptorextractor-create
+            # https://www.cnpython.com/qa/602444
+            d = cv2.SIFT_create()
             kp = s.detect(gray, None)
             kp, des = d.compute(img, kp)
 
