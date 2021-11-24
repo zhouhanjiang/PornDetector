@@ -157,9 +157,9 @@ class PCR:
         # loadModel函数: Python 中pickle出现 ascii’ codec can’t decode byte 0xe4 in position 0: ordinal not in range(128) 解决方法
         # https://blog.csdn.net/qq_36556893/article/details/96323642
         if sys.version_info.major == 3:
-            data = pickle.load(data, encoding='bytes')
+            data = pickle.loads(data, encoding='bytes')
         elif sys.version_info.major == 2:
-            data = pickle.load(data)
+            data = pickle.loads(data)
 
         self.__clustersNumber, self.__kmeans, self.__tfidf, self.__tfidf1, self.__clf, self.__clf1 = data
 
