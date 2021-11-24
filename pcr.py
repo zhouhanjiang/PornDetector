@@ -237,7 +237,14 @@ class PCR:
         samples[sampleNum] = (des, hist)
 
     def __getFeatures(self, fileName):
-        fid = 'cache/' + str(zlib.crc32(fileName))
+        # import binascii
+        # fileName = binascii.hexlify(bytes(fileName))
+        # fileName = str(fileName).encode()
+        try:
+            fid = 'cache/' + str(zlib.crc32(fileName))
+        except Exception as e:
+            print('EXCEPTION:', e)
+            fid = ""
         self.__log('loading %s' % fileName)
         if os.path.isfile(fid):
             des, hist = pickle.loads(open(fid, 'rb').read())
